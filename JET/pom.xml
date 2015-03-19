@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.marcus_chang.test</groupId>
+    <artifactId>JMWTest_FWK</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>web-ui-auto</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!--scope test-->
+        <!-- 单元测试需要 只在test -->
+        <junit.version>4.6</junit.version>
+
+        <!-- log4j -->
+        <log4j.version>1.2.16</log4j.version>
+
+        <!--WebDriver-->
+        <!--web driver only on scope test-->
+        <webdriver.version>2.45.0</webdriver.version>
+
+        <!--surefire-report version, used for auto test report generation-->
+        <surefire-report.version>2.18.1</surefire-report.version>
+
+        <!--maven-site-plugin version, used for auto test report generation-->
+        <site.version>2.1</site.version>
+
+        <!--surefire version, used for unit test trigger-->
+        <surefire.version>2.18.1</surefire.version>
+
+        <!--plugin -->
+        <!-- resources -->
+        <resourcesPlugin.version>2.4.3</resourcesPlugin.version>
+
+        <!--surefire-report folder path -->
+        <surefire-report.path>D:\Jenkins\jobs\WebDriver-EampleForChrome\site</surefire-report.path>
+
+        <!--surefire report file name-->
+        <surefire-report.name>TestReport-2015-03-17</surefire-report.name>
+
+    </properties>
+
+    <dependencies>
+
+        <!-- log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${webdriver.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${webdriver.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-firefox-driver</artifactId>
+            <version>${webdriver.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>${webdriver.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-ie-driver</artifactId>
+            <version>${webdriver.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>${webdriver.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>${webdriver.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-parent</artifactId>
+            <version>${webdriver.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${resourcesPlugin.version}</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!--surefire plugin for unit test-->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <executions>
+                    <execution>
+                        <id>run-WebDriverDemo-test</id>
+                        <!--<phase>integration-test</phase>-->
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/ExampleForChrome.java</include>
+                                <include>**/ExampleForFirefox.java</include>
+                                <include>**/ExampleForIE.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--used for Junit test report generation-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${surefire-report.version}</version>
+                <configuration>
+                    <!--<reportSets>-->
+                        <!--<reportSet>-->
+                            <!--<reports>-->
+                                 <!--<report>report-only</report>-->
+                            <!--</reports>-->
+                        <!--</reportSet>-->
+                    <!--</reportSets>-->
+                    <outputDirectory>${surefire-report.path}</outputDirectory>
+                    <outputName>${surefire-report.name}</outputName>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
